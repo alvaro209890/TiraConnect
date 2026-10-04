@@ -20,5 +20,5 @@ if [ -f ~/.cloudflared/tiraconnect.yml ]; then
 else
   echo "[install] túnel ainda não configurado — ver README (seção Domínio)"
 fi
-sleep 2
-curl -fsS http://127.0.0.1:3120/api/health && echo " <- ok"
+for _ in $(seq 1 20); do curl -fsS http://127.0.0.1:3120/api/health 2>/dev/null && { echo " <- ok"; exit 0; }; sleep 1; done
+echo "[install] serviço não respondeu — veja: journalctl --user -u tiraconnect -n 50"; exit 1
