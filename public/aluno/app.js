@@ -215,7 +215,8 @@ async function openPost(id) {
     },
   }));
   const clearReply = () => { replyTo = null; replyInfo.hidden = true; };
-  const refresh = async () => { p = await api(`/posts/${id}`); paintComments(); };
+  const countEl = h('span.muted.small', `💬 ${countAll(p.comments)} comentário(s)`);
+  const refresh = async () => { p = await api(`/posts/${id}`); paintComments(); countEl.textContent = `💬 ${countAll(p.comments)} comentário(s)`; };
 
   const readBtn = h(`button.btn.btn-sm${p.read_at ? '' : '.btn-blue'}`, {
     disabled: !!p.read_at,
@@ -234,7 +235,7 @@ async function openPost(id) {
     h('h2.detail-title', p.title),
     richText(p.body),
     renderAttachments(p.attachments),
-    h('div.read-bar', h('span.muted.small', `💬 ${countAll(p.comments)} comentário(s)`), readBtn),
+    h('div.read-bar', countEl, readBtn),
     commentsBox,
     h('form', {
       style: { display: 'grid', gap: '8px' },

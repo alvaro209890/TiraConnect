@@ -138,9 +138,10 @@ r.get('/posts/:id', (req, res) => {
 r.get('/posts/:id/views', (req, res) => {
   const post = loadPost(req.params.id);
   res.json(all(
-    `SELECT u.name, s.matricula, t.name AS turma, v.viewed_at, v.read_at
+    `SELECT u.name, s.matricula, se.name || ' ' || t.name AS turma, v.viewed_at, v.read_at
        FROM post_views v JOIN users u ON u.id = v.user_id
        LEFT JOIN students s ON s.user_id = u.id LEFT JOIN turmas t ON t.id = s.turma_id
+       LEFT JOIN series se ON se.id = t.serie_id
       WHERE v.post_id = ? ORDER BY v.viewed_at DESC`, post.id,
   ));
 });
