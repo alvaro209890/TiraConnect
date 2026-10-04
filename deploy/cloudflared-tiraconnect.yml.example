@@ -1,0 +1,9 @@
+# ~/.cloudflared/tiraconnect.yml — troque <UUID> pelo id do túnel criado
+tunnel: <UUID>
+credentials-file: /home/server/.cloudflared/<UUID>.json
+ingress:
+  - hostname: tiraconnect.cursar.space
+    service: http://127.0.0.1:3120
+  - hostname: tiraconnect-admin.cursar.space
+    service: http://127.0.0.1:3120
+  - service: http_status:404

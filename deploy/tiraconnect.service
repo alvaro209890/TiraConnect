@@ -1,0 +1,19 @@
+# ~/.config/systemd/user/tiraconnect.service  (server-desktop, systemd --user)
+[Unit]
+Description=TiraConnect — portal escola/alunos (API + front) :3120
+After=network-online.target
+Wants=network-online.target
+RequiresMountsFor=/media/server/HD\x20Backup
+
+[Service]
+Type=simple
+WorkingDirectory=/media/server/HD Backup/Servidores_NAO_MEXA/TiraConnect
+EnvironmentFile=/media/server/HD Backup/Servidores_NAO_MEXA/TiraConnect/.env
+ExecStart=/usr/bin/env node --disable-warning=ExperimentalWarning src/server.js
+Restart=always
+RestartSec=3
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=default.target

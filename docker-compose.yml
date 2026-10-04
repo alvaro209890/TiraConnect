@@ -1,0 +1,18 @@
+# Alternativa em container. No server-desktop o padrão da casa é systemd --user (ver deploy/).
+# Uso: cp .env.example .env && docker compose up -d --build
+services:
+  tiraconnect:
+    build: .
+    container_name: tiraconnect
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+      UPLOAD_DIR: /uploads
+      HOST: 0.0.0.0
+      PORT: 3120
+    ports:
+      - "127.0.0.1:3120:3120"   # só loopback; a internet chega pelo túnel Cloudflare
+    volumes:
+      - ./data:/data
+      - ./uploads:/uploads

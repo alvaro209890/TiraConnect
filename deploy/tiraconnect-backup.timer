@@ -1,0 +1,10 @@
+# ~/.config/systemd/user/tiraconnect-backup.timer — todo dia às 03:20
+[Unit]
+Description=TiraConnect — backup diário
+
+[Timer]
+OnCalendar=*-*-* 03:20:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

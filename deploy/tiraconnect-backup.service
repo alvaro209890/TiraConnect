@@ -1,0 +1,9 @@
+# ~/.config/systemd/user/tiraconnect-backup.service
+[Unit]
+Description=TiraConnect — backup do banco, uploads e .env
+RequiresMountsFor=/media/server/HD\x20Backup
+
+[Service]
+Type=oneshot
+WorkingDirectory=/media/server/HD Backup/Servidores_NAO_MEXA/TiraConnect
+ExecStart=/usr/bin/env bash scripts/backup.sh
